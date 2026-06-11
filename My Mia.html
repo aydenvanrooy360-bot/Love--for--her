@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Mia ❤️</title>
+    <style>
+        :root {
+            --primary-glow: #ff2a5f;
+            --secondary-glow: #7000ff;
+            --electric-pink: #ff007f;
+            --bg-dark: #0a0516;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: radial-gradient(circle at center, #1a0b2e 0%, var(--bg-dark) 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            perspective: 1000px; /* Enables 3D space for the whole page */
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            transform: translateZ(30px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--electric-pink), #ff758c, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 42, 95, 0.3);
+            margin-bottom: 5px;
+            animation: pulseGlow 3s ease-in-out infinite alternate;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            margin-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* 3D Interactive Card Base */
+        .card-3d {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                        0 0 40px rgba(255, 42, 95, 0.15);
+            transform-style: preserve-3d;
+            transform: rotateX(10deg) rotateY(-5deg);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s;
+        }
+
+        .card-3d:hover {
+            transform: rotateX(0deg) rotateY(0deg) translateZ(10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+                        0 0 50px rgba(112, 0, 255, 0.3),
+                        0 0 20px rgba(255, 42, 95, 0.3);
+            border-color: rgba(255, 42, 95, 0.4);
+        }
+
+        /* Mia's Letter Box Styling */
+        .letter-box {
+            text-align: left;
+            background: linear-gradient(135deg, rgba(20, 10, 35, 0.7) 0%, rgba(40, 15, 60, 0.6) 100%);
+            border-left: 4px solid var(--electric-pink);
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 25px;
+            border-radius: 16px;
+            white-space: pre-line; /* Keeps your exact paragraph spaces */
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #f0e6ff;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+            transform: translateZ(20px); /* Pushes content forward in 3D */
+        }
+
+        /* Custom modern scrollbar for the letter */
+        .letter-box::-webkit-scrollbar {
+            width: 6px;
+        }
+        .letter-box::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        .letter-box::-webkit-scrollbar-thumb {
+            background: var(--electric-pink);
+            border-radius: 10px;
+        }
+
+        /* 3D Glass Button */
+        .btn-3d {
+            background: linear-gradient(135deg, var(--electric-pink) 0%, var(--secondary-glow) 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(255, 42, 95, 0.4),
+                        inset 0 2px 4px rgba(255,255,255,0.4);
+            transform: translateZ(25px);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .btn-3d:hover {
+            transform: translateZ(35px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 42, 95, 0.6),
+                        0 0 20px rgba(112, 0, 255, 0.5);
+        }
+
+        .btn-3d:active {
+            transform: translateZ(15px) scale(0.98);
+        }
+
+        /* 3D Meter Layer */
+        .meter-bg-3d {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            height: 30px;
+            width: 100%;
+            margin-top: 25px;
+            overflow: hidden;
+            display: none;
+            position: relative;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .meter-fill-3d {
+            background: linear-gradient(90deg, #ff0055, #9900ff, #00f0ff);
+            background-size: 200% 200%;
+            animation: gradientShift 2s linear infinite;
+            height: 100%;
+            width: 0%;
+            transition: width 2s cubic-bezier(0.1, 0.8, 0.3, 1);
+        }
+
+        .meter-text-3d {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 5px;
+            font-weight: 900;
+            color: #fff;
+            font-size: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* 3D Coupon Card */
+        .coupon-3d {
+            background: linear-gradient(135deg, rgba(255, 42, 95, 0.1) 0%, rgba(112, 0, 255, 0.1) 100%);
+            border: 2px dashed rgba(255, 42, 95, 0.6);
+            padding: 30px;
+            border-radius: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transform: translateZ(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .coupon-3d:hover {
+            border-color: #00f0ff;
+            background: linear-gradient(135deg, rgba(255, 42, 95, 0.2) 0%, rgba(0, 240, 255, 0.15) 100%);
+            box-shadow: 0 10px 25px rgba(0, 240, 255, 0.2);
+        }
+
+        /* Dynamic Background Particle Hearts */
+        .heart-3d {
+            position: fixed;
+            color: var(--electric-pink);
+            text-shadow: 0 0 15px var(--electric-pink), 0 0 30px var(--secondary-glow);
+            animation: float3D 5s ease-in infinite;
+            bottom: -60px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes float3D {
+            0% {
+                transform: translateY(0) scale(0.5) rotateX(0deg) rotateY(0deg);
+                opacity: 0;
+            }
+            15% { opacity: 0.8; }
+            100% {
+                transform: translateY(-110vh) scale(1.3) rotateX(360deg) rotateY(180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 20px rgba(255, 42, 95, 0.2); }
+            100% { text-shadow: 0 0 40px rgba(255, 42, 95, 0.6), 0 0 20px rgba(112, 0, 255, 0.4); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>For My Pretty Girl ✨</h1>
+        <p style="color: #b0a2cf; font-size: 1.1rem;">Mia, I built this space completely for you.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- LAYER 1: THE LETTER FOR MIA -->
+        <div class="card-3d">
+            <h2 style="color: var(--electric-pink); margin-top: 0; text-shadow: 0 0 10px rgba(255,42,95,0.3);">A Message For You ❤️</h2>
+            <p style="color: #bbb; margin-bottom: 20px;">Scroll inside the box below to read it all...</p>
+            
+            <div class="letter-box" id="letterText">Mia ❤️
+
+I don’t even know where to start, because every time I try to explain what you mean to me, normal words feel too small. They don’t carry enough weight. They don’t hold enough feeling. But I’ll still try, because you deserve to know — even if I can never fully express it the way I feel it inside me.
+
+You are not just someone I love. You are someone who changed the way I see love completely. Before you, I thought love was just a word people used easily. But now I understand it differently. I understand it in quiet moments, in small thoughts, in the way my mind always finds its way back to you no matter what I’m doing.
+
+You became my peace without even trying. My comfort without even knowing. My favourite part of days that feel ordinary. Even when life gets stressful, even when things don’t go right, even when I feel tired or overwhelmed — the thought of you somehow makes everything feel lighter.
+
+I love you in ways that are not loud or dramatic. I love you in the quiet consistency of my heart choosing you again and again. I love you in the way I miss you randomly. In the way I imagine you smiling and it makes me feel calm. In the way I find myself caring about your happiness more than anything else around me.
+
+You are my pretty girl, Mia. And when I say that, I don’t mean it in a shallow way. I mean it in a deep, permanent way — like something my heart decided and never questioned again.
+
+There are so many things I wish I could tell you in person. Like how you’ve become part of my thoughts without effort. How I find myself thinking about your voice, your smile, your presence when I’m alone. How even silence feels less empty when I think of you.
+
+If I had to describe what you mean to me in one sentence, I couldn’t. Because you are not a sentence. You are a feeling. You are a chapter in my life that I never want to end. You are the kind of person I don’t just like in the moment — I care about in a long-term, deep, real way.
+
+And maybe I’m not perfect. Maybe I don’t always say things the right way or show everything exactly how I feel it. But one thing will always stay true — my feelings for you are real, and they don’t fade when things get quiet or when life gets busy. They stay. They grow. They stay yours.
+
+I don’t know what the future holds, but I know that in every version of it I imagine, you are there in some way. Not because I need you to complete me, but because you already mean something to me that I don’t want to lose.
+
+So if you ever doubt yourself, or ever wonder how much you matter to me, I hope you come back to this and remember:
+
+You are deeply loved, consistently chosen, and genuinely important to me — more than you might ever fully realise. ❤️</div>
+        </div>
+
+        <!-- LAYER 2: INTERACTIVE NEON LOVE METER -->
+        <div class="card-3d">
+            <h3 style="margin-top:0;">The Ultimate Love Metrics</h3>
+            <p style="color: #aaa;">Let's test the math behind how much I love you.</p>
+            <button class="btn-3d" onclick="runLoveMeter()">Initialize Calculation</button>
+            
+            <div class="meter-bg-3d" id="meterBg">
+                <div class="meter-fill-3d" id="meterFill"></div>
+                <div class="meter-text-3d" id="meterText">0%</div>
+            </div>
+            <p id="loveMessage" style="margin-top: 20px; font-weight: bold; color: #ff7590; line-height: 1.5;"></p>
+        </div>
+
+        <!-- LAYER 3: INTERACTIVE REWARD TICKET -->
+        <div class="card-3d">
+            <h3 style="margin-top:0;">Exclusive Pass</h3>
+            <p style="color: #aaa;">Tap below to unlock a special voucher created specifically for you.</p>
+            
+            <div class="coupon-3d" onclick="openVoucher(this)">
+                <div id="voucherCover" style="font-weight: bold; font-size: 1.2rem; color: var(--electric-pink); text-shadow: 0 0 10px rgba(255,42,95,0.4);">⚡ CLICK TO DECRYPT VOUCHER ⚡</div>
+                <div id="voucherSecret" style="display: none; font-size: 1.2rem; color: #00f0ff; font-weight: bold; text-shadow: 0 0 15px rgba(0,240,255,0.4);">🎟️ Voucher Confirmed: Valid for 1 All-Expenses-Paid Date Night (You pick the place) + Continuous Spoiling!</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Interactive 3D Holographic Love Meter
+        function runLoveMeter() {
+            const meterBg = document.getElementById('meterBg');
+            const meterFill = document.getElementById('meterFill');
+            const meterText = document.getElementById('meterText');
+            const loveMessage = document.getElementById('loveMessage');
+
+            meterBg.style.display = 'block';
+            meterFill.style.width = '0%';
+            meterText.innerText = '0%';
+            loveMessage.innerText = 'Running algorithms...';
+
+            setTimeout(() => {
+                meterFill.style.width = '100%';
+                meterText.innerText = '⚡ CAPACITY BREACHED: ∞ %';
+                loveMessage.innerText = 'Result Error: Mia, my love for you has overloaded the server database. Standard scales cannot measure this! 🌌📈';
+                
+                // Blast an explosion of 3D glowing hearts
+                for(let i=0; i<25; i++) {
+                    setTimeout(spawn3DHeart, i * 100);
+                }
+            }, 200);
+        }
+
+        // Voucher decryption
+        function openVoucher(card) {
+            document.getElementById('voucherCover').style.display = 'none';
+            document.getElementById('voucherSecret').style.display = 'block';
+            card.style.cursor = 'default';
+        }
+
+        // Generate 3D Neonic Hearts
+        function spawn3DHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-3d');
+            
+            // Randomize between standard heart and special emoji versions
+            const heartTypes = ['❤️', '💖', '✨', '💕'];
+            heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 4) + 's'; // 4-6s
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px'; // 20-40px
+            
+            // Inject random 3D rotation offsets for depth look
+            heart.style.transform = `rotateZ(${Math.random() * 360}deg)`;
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Keep a steady beautiful ambient flow of hearts in the background
+        setInterval(spawn3DHeart, 1800);
+    </script>
+
+</body>
+</html>
