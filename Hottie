@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person ❤️</title>
+    <style>
+        :root {
+            --primary-pink: #ff4b6e;
+            --soft-pink: #ffe3e8;
+            --dark-pink: #d63354;
+            --bg-color: #fff5f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: var(--primary-pink);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(255, 75, 110, 0.1);
+            text-align: center;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Interactive Element: Love Meter */
+        .meter-container {
+            margin: 20px 0;
+        }
+
+        .btn {
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-pink);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .progress-bar-bg {
+            background-color: #eee;
+            border-radius: 15px;
+            height: 25px;
+            width: 100%;
+            margin-top: 15px;
+            overflow: hidden;
+            display: none;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-pink), #ff7590);
+            height: 100%;
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .meter-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 3px;
+            font-weight: bold;
+            color: #000;
+            font-size: 0.9rem;
+        }
+
+        /* Interactive Element: Coupon Reveal */
+        .coupon-box {
+            background-color: var(--soft-pink);
+            border: 3px dashed var(--primary-pink);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            cursor: pointer;
+            position: relative;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coupon-secret {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--dark-pink);
+            display: none;
+        }
+
+        .coupon-cover {
+            font-size: 1.1rem;
+            color: var(--dark-pink);
+            font-weight: bold;
+        }
+
+        /* Floating Hearts Styling */
+        .heart {
+            position: fixed;
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+            animation: float Up 4s linear infinite;
+            bottom: -50px;
+            opacity: 0;
+            zIndex: -1;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hey Favorite Human ❤️</h1>
+        <p>I built a little space just for you.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- CARD 1: LOVE METER -->
+        <div class="card">
+            <h3>The Official Love Meter</h3>
+            <p>Click the button to measure exactly how much I love you right now.</p>
+            <button class="btn" onclick="startLoveMeter()">Calculate Love</button>
+            
+            <div class="progress-bar-bg" id="meterBg">
+                <div class="progress-bar" id="meterFill"></div>
+                <div class="meter-text" id="meterText">0%</div>
+            </div>
+            <p id="loveMessage" style="margin-top: 15px; font-weight: bold; color: var(--dark-pink);"></p>
+        </div>
+
+        <!-- CARD 2: INTERACTIVE COUPON -->
+        <div class="card">
+            <h3>Your Special Reward</h3>
+            <p>Click the ticket below to claim your exclusive boyfriend coupon!</p>
+            
+            <div class="coupon-box" onclick="revealCoupon(this)">
+                <span class="coupon-cover" id="coverText">✨ Click to Reveal ✨</span>
+                <span class="coupon-secret" id="secretText">🎟️ Good for 1 Free Date Night (Your Choice of Place) + Unlimited Snacks!</span>
+            </div>
+        </div>
+
+        <!-- CARD 3: SWEET NOTE -->
+        <div class="card">
+            <h3>Just a Reminder...</h3>
+            <p style="line-height: 1.6; color: #555;">
+                "Thank you for being you, for all the laughs, and for making everyday a whole lot brighter. You deserve the world, but for now, I hope this website brings a smile to your face."
+            </p>
+            <span style="font-size: 1.5rem;">😘</span>
+        </div>
+
+    </div>
+
+    <script>
+        // Love Meter Functionality
+        function startLoveMeter() {
+            const meterBg = document.getElementById('meterBg');
+            const meterFill = document.getElementById('meterFill');
+            const meterText = document.getElementById('meterText');
+            const loveMessage = document.getElementById('loveMessage');
+
+            meterBg.style.display = 'block';
+            meterFill.style.width = '0%';
+            meterText.innerText = '0%';
+            loveMessage.innerText = 'Calculating...';
+
+            // Animate to broken/overflowing capacity
+            setTimeout(() => {
+                meterFill.style.width = '100%';
+                meterText.innerText = '9999%';
+                loveMessage.innerText = 'Error: System overload. My love for you cannot be calculated by standard mathematics! 📈❤️';
+                
+                // Trigger a burst of floating hearts
+                for(let i=0; i<15; i++) {
+                    setTimeout(createHeart, i * 150);
+                }
+            }, 100);
+        }
+
+        // Coupon Reveal Functionality
+        function revealCoupon(element) {
+            document.getElementById('coverText').style.display = 'none';
+            document.getElementById('secretText').style.display = 'block';
+            element.style.backgroundColor = '#fff';
+            element.style.cursor = 'default';
+        }
+
+        // Background Floating Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's'; // 3-5 seconds
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px'; // 15-30px
+            document.body.appendChild(heart);
+
+            // Remove heart after animation ends
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Create random background hearts automatically every few seconds
+        setInterval(createHeart, 2500);
+    </script>
+
+</body>
+</html>
