@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 40px 25px;
+    border-radius: 25px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    max-width: 500px;
+    width: 90%;
+}
+
+h1 {
+    font-size: 2.4em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.2em;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #ff4d6d;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: #ff4d6d;
+    color: white;
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none;
+}
+
+.heart {
+    font-size: 45px;
+    animation: beat 1s infinite;
+    margin: 10px 0;
+}
+
+@keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Hey My Love ❤️</h1>
+    <h2>This is just for you 🥺</h2>
+
+    <p>
+        I made this because sometimes words alone are not enough.
+    </p>
+
+    <button onclick="showMessage()">Open My Heart 💖</button>
+
+    <div id="message" class="hidden">
+
+        <div class="heart">❤️</div>
+
+        <p>No matter what happens… I still love you.</p>
+
+        <p>You mean the most to me in ways I can’t even explain properly.</p>
+
+        <p>Even on hard days, I choose you. Always.</p>
+
+        <p>You are my peace, my person, my everything. 💕</p>
+
+        <p>I’m not going anywhere. I’m here with you.</p>
+
+        <button onclick="loveAlert()">Do you feel it? 🥺</button>
+
+    </div>
+
+</div>
+
+<script>
+function showMessage() {
+    document.getElementById("message").classList.remove("hidden");
+}
+
+function loveAlert() {
+    alert("I love you more than words can explain ❤️");
+}
+</script>
+
+</body>
+</html>
